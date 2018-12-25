@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+import click
+
+
+# @click.command()
+# @click.argument('command', default='meh')
+# def gtu(command):
+#     print('command: '+command)
+@click.group()
+def gtu():
+    pass
+
+@gtu.command()
+def add():
+    click.echo('add a new task')
+
+@gtu.command()
+def ls():
+    click.echo('ls tasks')
+
+if __name__ == '__main__':
+    gtu()
