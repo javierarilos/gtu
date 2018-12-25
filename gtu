@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 import click
+from os import path
 
-
+tasks = []
+gtu_dir = '/Users/jarias/gtu'
 # @click.command()
 # @click.argument('command', default='meh')
 # def gtu(command):
@@ -12,12 +14,18 @@ def gtu():
     pass
 
 @gtu.command()
-def add():
+@click.argument('task', required=True)
+def add(task):
     click.echo('add a new task')
+    fname = path.join(gtu_dir, task.replace(' ', '_'))
+    with open(fname, 'a') as f:
+        f.write(task)
 
 @gtu.command()
 def ls():
     click.echo('ls tasks')
+    for task in tasks:
+        print(task)
 
 if __name__ == '__main__':
     gtu()
