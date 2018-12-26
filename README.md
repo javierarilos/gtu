@@ -9,6 +9,8 @@ my own GTD tool
 * [x] list all tags
 * [x] list tasks by tag
 * [ ] task manage tags by id
+* [ ] mark task as done
+* [ ] mark done task back to inbox
 * [ ] delete task by id
 * [ ] edit task by id
 * [ ] process inbox
