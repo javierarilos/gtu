@@ -6,7 +6,7 @@ my own GTD tool
 * [x] manage config: init, reset, show: home_dir
 * [x] list tasks
 * [x] iterative: list tasks with id, refer by id, just print whole
-* [ ] list tags
+* [x] list all tags
 * [ ] list tasks by tag
 * [ ] task manage tags by id
 * [ ] delete task by id

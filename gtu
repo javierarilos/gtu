@@ -53,6 +53,12 @@ def details():
     selected_task = tasks[choice]
     pprint_task(selected_task)
 
+
+@gtu.command()
+def all_tags():
+    tags = set((tag for task in persistence.get_tasks() for tag in task.tags))
+    cli_ui.info('all tags: ', cli_ui.yellow, tags)
+
 def pprint_task(task):
     cli_ui.info(cli_ui.bold, cli_ui.blue, 'Title: ', cli_ui.reset, '"', task.title, '"', cli_ui.yellow, task.tags)
     cli_ui.info(cli_ui.bold, cli_ui.blue, 'Description: ', cli_ui.reset, '"', task.description, '"')
