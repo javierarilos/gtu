@@ -55,9 +55,18 @@ def details():
 
 
 @gtu.command()
-def all_tags():
+def alltags():
     tags = set((tag for task in persistence.get_tasks() for tag in task.tags))
     cli_ui.info('all tags: ', cli_ui.yellow, tags)
+
+
+@gtu.command()
+@click.argument('tag', default='inbox')
+def tagged(tag):
+    tasks = [task for task in persistence.get_tasks() if tag in task.tags]
+    cli_ui.info('Tasks with tag: ', cli_ui.yellow, tag)
+    for task in tasks:
+        pprint_task(task)
 
 def pprint_task(task):
     cli_ui.info(cli_ui.bold, cli_ui.blue, 'Title: ', cli_ui.reset, '"', task.title, '"', cli_ui.yellow, task.tags)

@@ -7,7 +7,7 @@ my own GTD tool
 * [x] list tasks
 * [x] iterative: list tasks with id, refer by id, just print whole
 * [x] list all tags
-* [ ] list tasks by tag
+* [x] list tasks by tag
 * [ ] task manage tags by id
 * [ ] delete task by id
 * [ ] edit task by id
