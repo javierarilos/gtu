@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import click
-import app.local_file_persistence as persistence
 from app.task import Task
 from os import path
 from app import config
 import cli_ui
+from app.query import all_tasks, save, tasks_by_title, all_tags, tasks_tagged
 
 
 @click.group()
@@ -17,15 +17,14 @@ def gtu():
 def add(task_title):
     click.echo('adding a new task')
     task = Task(task_title)
-    persistence.save(task)
+    save(task)
 
 @gtu.command()
 def ls():
-    click.echo('ls tasks... pending implementation')
-    for task in persistence.get_tasks():
+    click.echo('ls tasks...')
+    for task in all_tasks():
         click.echo('task.title=' + task.title)
         click.echo(task.serialize())
-    click.echo('Done')
 
 
 @gtu.command()
@@ -45,7 +44,7 @@ def show_config():
 
 @gtu.command()
 def details():
-    tasks = {task.title: task for task in persistence.get_tasks()}
+    tasks = tasks_by_title()
     choice = cli_ui.ask_choice("Select task, <Enter> to exit.", choices=list(tasks.keys()))
     if not choice:
         return
@@ -56,15 +55,14 @@ def details():
 
 @gtu.command()
 def alltags():
-    tags = set((tag for task in persistence.get_tasks() for tag in task.tags))
-    cli_ui.info('all tags: ', cli_ui.yellow, tags)
+    cli_ui.info('all tags: ', cli_ui.yellow, all_tags())
 
 
 @gtu.command()
 @click.argument('tag', default='inbox')
 def tagged(tag):
-    tasks = [task for task in persistence.get_tasks() if tag in task.tags]
-    cli_ui.info('Tasks with tag: ', cli_ui.yellow, tag)
+    tasks = tasks_tagged(tag)
+    cli_ui.info('Tasks with tag: ', cli_ui.yellow, tasks)
     for task in tasks:
         pprint_task(task)
 
