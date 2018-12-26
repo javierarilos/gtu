@@ -5,6 +5,7 @@ import app.local_file_persistence as persistence
 from app.task import Task
 from os import path
 from app import config
+import cli_ui
 
 
 @click.group()
@@ -41,6 +42,20 @@ def init(file_persistence_base):
 def show_config():
     click.echo('config=' + config.get_str())
 
+
+@gtu.command()
+def details():
+    tasks = {task.title: task for task in persistence.get_tasks()}
+    choice = cli_ui.ask_choice("Select task, <Enter> to exit.", choices=list(tasks.keys()))
+    if not choice:
+        return
+
+    selected_task = tasks[choice]
+    pprint_task(selected_task)
+
+def pprint_task(task):
+    cli_ui.info(cli_ui.bold, cli_ui.blue, 'Title: ', cli_ui.reset, '"', task.title, '"', cli_ui.yellow, task.tags)
+    cli_ui.info(cli_ui.bold, cli_ui.blue, 'Description: ', cli_ui.reset, '"', task.description, '"')
 
 if __name__ == '__main__':
     gtu()
