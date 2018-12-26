@@ -4,6 +4,7 @@ import click
 import app.local_file_persistence as persistence
 from app.task import Task
 from os import path
+from app import config
 
 
 tasks = []
@@ -28,6 +29,21 @@ def ls():
     click.echo('ls tasks... pending implementation')
     for task in tasks:
         print(task)
+
+@gtu.command()
+@click.option('--file-persistence-base', required=False)
+def init(file_persistence_base):
+    click.confirm('Do you want to continue?\n\tThis will remove your current tasks and config.', abort=True)
+    config_file = config.init()
+    click.echo('init...')
+    click.echo('config_file='+config_file)
+    written_config = config.write(file_persistence_base)
+    click.echo('written_config='+written_config)
+
+@gtu.command()
+def show_config():
+    click.echo('config=' + config.get_str())
+
 
 if __name__ == '__main__':
     gtu()
