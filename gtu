@@ -7,12 +7,6 @@ from os import path
 from app import config
 
 
-tasks = []
-gtu_dir = '/Users/jarias/gtu'
-# @click.command()
-# @click.argument('command', default='meh')
-# def gtu(command):
-#     print('command: '+command)
 @click.group()
 def gtu():
     pass
@@ -27,8 +21,11 @@ def add(task_title):
 @gtu.command()
 def ls():
     click.echo('ls tasks... pending implementation')
-    for task in tasks:
-        print(task)
+    for task in persistence.get_tasks():
+        click.echo('task.title=' + task.title)
+        click.echo(task.serialize())
+    click.echo('Done')
+
 
 @gtu.command()
 @click.option('--file-persistence-base', required=False)
