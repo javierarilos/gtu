@@ -5,9 +5,10 @@ my own GTD tool
 * [x] save task to file
 * [x] manage config: init, reset, show: home_dir
 * [x] list tasks
-* [ ] iterative: list tasks with id, refer by id, just print whole
+* [x] iterative: list tasks with id, refer by id, just print whole
+* [ ] list tags
+* [ ] list tasks by tag
 * [ ] task manage tags by id
-* [ ] 
 * [ ] delete task by id
 * [ ] edit task by id
 * [ ] process inbox
