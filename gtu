@@ -6,11 +6,31 @@ from os import path
 from app import config
 import cli_ui
 from app.query import all_tasks, save, tasks_by_title, all_tags, tasks_tagged
+import subprocess
+import sys
 
 
 @click.group()
 def gtu():
     pass
+
+
+@gtu.command()
+def editadd():
+    proc = subprocess.Popen(
+        "EDITOR=vim echo '' | vipe",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
+    out, err = proc.communicate()
+    ret = proc.returncode
+    out_str = out.decode("utf-8")
+    if proc.returncode:
+        sys.exit(proc.returncode)
+
+    click.echo("got from VIM: "+out_str)
+    task = Task.from_multiline(out_str)
+    save(task)
 
 @gtu.command()
 @click.argument('task_title', required=True)
