@@ -14,9 +14,12 @@ def gtu():
 
 @gtu.command()
 @click.argument('task_title', required=True)
-def add(task_title):
+@click.option('--description', '-d', default='')
+@click.option('--tags', '-t',  multiple=True)
+def add(task_title, description, tags):
     click.echo('adding a new task')
-    task = Task(task_title)
+    click.echo('tags value is: ' + str(tags))
+    task = Task(task_title, description=description, tags=tags)
     save(task)
 
 @gtu.command()

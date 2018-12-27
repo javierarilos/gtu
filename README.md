@@ -8,6 +8,8 @@ my own GTD tool
 * [x] iterative: list tasks with id, refer by id, just print whole
 * [x] list all tags
 * [x] list tasks by tag
+* [x] add with all the information
+* [ ] parse vim created task
 * [ ] task manage tags by id
 * [ ] mark task as done
 * [ ] mark done task back to inbox
